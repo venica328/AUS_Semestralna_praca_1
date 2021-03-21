@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\structures">
+      <UniqueIdentifier>{1e78609b-4154-4ffa-afaf-704597c4a9bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\structures\array">
+      <UniqueIdentifier>{1443eb83-9b48-4b81-bc74-8559c9287213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\structures\list">
+      <UniqueIdentifier>{22d287ee-bd81-4198-afc1-58956275f0ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\structures\vector">
+      <UniqueIdentifier>{970ffab7-3108-4a43-a7d1-703a60b441e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\structures">
+      <UniqueIdentifier>{663b11cc-5202-4bde-8abe-0712f8992a76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\structures\vector">
+      <UniqueIdentifier>{4734c4f2-758e-4393-9915-04e07f8e82d3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SemestralnaPracaAUS2021.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedArrayTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="structures\vector\vector.cpp">
+      <Filter>Source Files\structures\vector</Filter>
+    </ClCompile>
+    <ClCompile Include="structures\ds_routines.cpp">
+      <Filter>Source Files\structures</Filter>
+    </ClCompile>
+    <ClCompile Include="structures\memory_routines.cpp">
+      <Filter>Source Files\structures</Filter>
+    </ClCompile>
+    <ClCompile Include="structures\structure.cpp">
+      <Filter>Source Files\structures</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ADT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedArrayTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\array\array.h">
+      <Filter>Header Files\structures\array</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\list\list.h">
+      <Filter>Header Files\structures\list</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\list\linked_list.h">
+      <Filter>Header Files\structures\list</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\list\array_list.h">
+      <Filter>Header Files\structures\list</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\vector\vector.h">
+      <Filter>Header Files\structures\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\ds_routines.h">
+      <Filter>Header Files\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\ds_structure_types.h">
+      <Filter>Header Files\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\heap_monitor.h">
+      <Filter>Header Files\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\memory_routines.h">
+      <Filter>Header Files\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\structure.h">
+      <Filter>Header Files\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\structure_iterator.h">
+      <Filter>Header Files\structures</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\ClassDiagram.cd" />
+  </ItemGroup>
+</Project>
