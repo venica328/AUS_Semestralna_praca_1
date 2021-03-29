@@ -4,13 +4,13 @@
 using namespace structures;
 using namespace std;
 
-int pocRiadkov = (rand() % 10 + 1);
-int pocStlpcov = (rand() % 10 + 1);
+int pocRiadkov = (rand() % 2000 + 1);
+int pocStlpcov = (rand() % 2000 + 1);
 int a = pocStlpcov;
-int konstanta = (rand() % 10 + 1);
+int konstanta = (rand() % 2000 + 1);
 int matica = pocRiadkov * pocStlpcov;
 int maticaSucin = a * konstanta;
-int maticaSucinVysledok = konstanta * a;
+int maticaSucinVysledok = pocRiadkov * konstanta;
 
 Matrix::Matrix()
 {
@@ -90,22 +90,23 @@ void Matrix::Spocitaj(int test)
 void Matrix::Vynasob(int test)
 {
 	VyberArrayTest(0);
-	cout << "MATICA 1 " << endl;
+	cout << "MATICA 1 ";
 	for (int i = 0; i < array1->size(); i++)
 	{
-		int cislo = rand() % 2000 + 1;
+		int cislo = rand() % 2 + 1;
 		(*array1)[i] = cislo;
-		if (i == pocStlpcov)
+		if (i % pocStlpcov == 0)
 		{
 			cout << endl;
 		}
 		cout << (*array1)[i] << " ";
 	}
 	cout << endl;
-	cout << "MATICA 2 " << endl;
+	cout << endl;
+	cout << "MATICA 2 ";
 	for (int i = 0; i < array1111->size(); i++)
 	{
-		int cislo = rand() % 2000 + 1;
+		int cislo = rand() % 2 + 1;
 		(*array1111)[i] = cislo;
 		if (i % konstanta == 0)
 		{
@@ -114,20 +115,22 @@ void Matrix::Vynasob(int test)
 		cout << (*array1111)[i] << " ";
 	}
 	cout << endl;
+	cout << endl;
 	cout << "VYSLEDOK NASOBENIA " << endl;
 
 	for (int k = 0; k < pocRiadkov; k++)	
 	{
-		for (int i = 0; i < pocStlpcov; i++)	
-		{
-			for (int j = 0; j < a; j++)	
+		for (int i = 0; i < konstanta; i++)	
+		{				
+			(*array11111)[i + k * konstanta] = 0;
+			for (int h = 0; h < pocStlpcov; h++)
 			{
-				(*array11111)[i + k * pocStlpcov] += (*array1)[j + k * pocStlpcov] * (*array1111)[j * konstanta];
-				cout << (*array11111)[i + k * pocStlpcov] << endl;
-			}
+				(*array11111)[i + k * konstanta] += (*array1)[h + k * pocStlpcov] * (*array1111)[i + h * konstanta];
+			}			
+			cout << (*array11111)[i + k * konstanta] << " ";
 		}
+		cout << endl;
 	}
-	
 	cout << endl;
 }
 
