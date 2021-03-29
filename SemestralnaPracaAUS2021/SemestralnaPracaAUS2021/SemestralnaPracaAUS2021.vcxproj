@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LinkedArrayTest.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="SemestralnaPracaAUS2021.cpp" />
     <ClCompile Include="structures\ds_routines.cpp" />
     <ClCompile Include="structures\memory_routines.cpp" />
@@ -149,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="ADT.h" />
     <ClInclude Include="LinkedArrayTest.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="structures\array\array.h" />
     <ClInclude Include="structures\ds_routines.h" />
     <ClInclude Include="structures\ds_structure_types.h" />

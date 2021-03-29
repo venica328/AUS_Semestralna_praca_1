@@ -51,6 +51,9 @@
     <ClCompile Include="structures\structure.cpp">
       <Filter>Source Files\structures</Filter>
     </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ADT.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="structures\structure_iterator.h">
       <Filter>Header Files\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

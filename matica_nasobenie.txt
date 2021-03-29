@@ -1,0 +1,42 @@
+matica1->	1,1,1|2,2,2
+matica2->	1,1,1|2,2,2|3,3,3
+
+1,1,1	*	1,1,1	6,6,6	
+2,2,2		2,2,2	12,12,12
+		3,3,3
+
+for(int k = 0; k < poc_riadkov_matice1; k++)	2
+{
+	for(int i =0; i < poc_stlpcov_matice1; i++)	3
+	{
+		for(int j = 0; j < matica2_poc_riadkov; j++)	3
+		{
+			matica3[i+k*poc_stlpcov_matice1] += matica1[j+k*poc_stlpcov_matice1]*matica2[j*poc_stlpcov_matice2]
+		}
+	}
+}
+
+matica3(0+0*3)[0] += matica1(0+0*3)[0] * matica2(0*3)[0]
+matica3[0] +=  	1*1
+matica3(0+0*3)[0] += matica1(1+0*3)[1] * matica2(1*3)[3]		
+matica3[0] +=  	1*2
+matica3(0+0*3)[0] += matica1(2+0*3)[2] * matica2(2*3)[6]
+matica3[0] +=  	6
+
+i=1
+matica3(1+0*3)[0] += matica1(0+0*3)[0] * matica2(0*3)[0]
+matica3[1] +=  	6
+
+i=2
+matica3(2+0*3)[0] += matica1(0+0*3)[0] * matica2(0*3)[0]
+matica3[2] +=  	6
+
+k=1, j=0,i=0
+matica3(0+1*3)[3] += matica1(0+1*3)[3] * matica2(0*3)[0]
+matica3[3] +=  	2*1
+matica3(0+1*3)[3] += matica1(1+1*3)[4] * matica2(1*3)[3]
+matica3[3] +=  	2*2
+matica3(0+1*3)[3] += matica1(2+1*3)[5] * matica2(2*3)[6]
+matica3[3] +=  	2*3
+
+

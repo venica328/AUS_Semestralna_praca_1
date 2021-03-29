@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "LinkedArrayTest.h"
+#include "Matrix.h"
 #include "structures/list/array_list.h"
 #include <iostream>
 #include <fstream>
@@ -7,6 +8,10 @@
 using namespace structures;
 
 int main(char* arc, char** argv) {
+
+	Matrix matica;
+	//matica.Spocitaj(0);
+	matica.Vynasob(0);
 
 	int x;
 	std::cout << "Vyber list test!" << endl;
