@@ -150,7 +150,9 @@
   <ItemGroup>
     <ClInclude Include="ADT.h" />
     <ClInclude Include="LinkedArrayTest.h" />
+    <ClInclude Include="matica.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="nesuvislaMatica.h" />
     <ClInclude Include="structures\array\array.h" />
     <ClInclude Include="structures\ds_routines.h" />
     <ClInclude Include="structures\ds_structure_types.h" />
@@ -162,6 +164,7 @@
     <ClInclude Include="structures\structure.h" />
     <ClInclude Include="structures\structure_iterator.h" />
     <ClInclude Include="structures\vector\vector.h" />
+    <ClInclude Include="suvislaMatica.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\ClassDiagram.cd" />

@@ -1,5 +1,5 @@
-Poèet všetkıch operácií: ;100000;èasová nároènos: ;25.4377
-Poèet insert operácií: ;20000;èasová nároènos: ;7.17577
-Poèet remove operácií: ;20000;èasová nároènos: ;4.60513
-Poèet set operácií: ;50000;èasová nároènos: ;7.11834
-Poèet index operácií: ;10000;èasová nároènos: ;1.76759
+Poèet všetkıch operácií: ;Poèet insert operácií: ;Poèet remove operácií: ;Poèet set operácií: ;Poèet index operácií: 
+100000;20000;20000;50000;10000
+
+Èasová nároènos: ;VŠETKY OPERÁCIE: ;INSERT: ;REMOVE: ;SET: ;INDEX: 
+;31.5009;9.29668;5.75588;8.50274;2.33536

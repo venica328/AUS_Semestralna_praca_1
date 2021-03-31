@@ -1,18 +1,24 @@
 #include "Matrix.h"
 #include "structures/array/array.h"
+#include "suvislaMatica.h"
+#include "nesuvislaMatica.h"
+#include "matica.h"
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 using namespace structures;
 using namespace std;
 
-int pocRiadkov = (rand() % 2000 + 1);
-int pocStlpcov = (rand() % 2000 + 1);
-int a = pocStlpcov;
-int konstanta = (rand() % 2000 + 1);
-int matica = pocRiadkov * pocStlpcov;
-int maticaSucin = a * konstanta;
-int maticaSucinVysledok = pocRiadkov * konstanta;
+int pocRiadkov = (rand() % 20 + 1);
+int pocStlpcov = (rand() % 20 + 1);
+int pocStlpcov2 = (rand() % 20 + 1);
+int spolu = 0;
 
 Matrix::Matrix()
+{
+}
+
+Matrix::~Matrix()
 {
 }
 
@@ -20,20 +26,22 @@ int Matrix::VyberArrayTest(int volba)
 {
 	switch (volba) {
 	case 0:
-		array1 = new Array<int>(matica);
-		array11 = new Array<int>(matica);
-		array111 = new Array<int>(matica);
-		array1111 = new Array<int>(maticaSucin);
-		array11111 = new Array<int>(maticaSucinVysledok);
+		maticaSuvisla1 = new SuvislaMatica<int>(pocRiadkov, pocStlpcov);
+		maticaSuvisla2 = new SuvislaMatica<int>(pocRiadkov, pocRiadkov);
+		maticaSuvisla3 = new SuvislaMatica<int>(pocRiadkov, pocRiadkov);
+		maticaSuvislaA = new SuvislaMatica<int>(pocRiadkov, pocStlpcov2);
+		maticaSuvislaB = new SuvislaMatica<int>(pocStlpcov2, pocStlpcov);
+		maticaSuvislaC = new SuvislaMatica<int>(pocRiadkov, pocStlpcov);
 		return 0;
 		break;
 	case 1:
-		array1 = new Array<int>(3);
-		array2 = new Array<Array<int>*>(10);
-		array1[0] = 3;
-		array1[1] = 2;
-		array1[2] = 5;
-		array2[0] = *array1;
+		maticaSuvisla1 = new NesuvislaMatica<int>(pocRiadkov, pocRiadkov);
+		maticaSuvisla2 = new NesuvislaMatica<int>(pocRiadkov, pocRiadkov);
+		maticaSuvisla3 = new NesuvislaMatica<int>(pocRiadkov, pocRiadkov);
+		maticaSuvislaA = new NesuvislaMatica<int>(pocRiadkov, pocStlpcov2);
+		maticaSuvislaB = new NesuvislaMatica<int>(pocStlpcov2, pocStlpcov);
+		maticaSuvislaC = new NesuvislaMatica<int>(pocRiadkov, pocStlpcov);
+		array = new Array<int>(5);
 		return 1;
 		break;
 	default:
@@ -51,86 +59,146 @@ void Matrix::Spocitaj(int test)
 {
 	VyberArrayTest(0);
 	cout << "MATICA 1 " << endl;
-	for (int i = 0; i < array1->size(); i++)
+	for (int i = 0; i < maticaSuvisla1->getPocetRiadkov(); i++)
 	{
-		int cislo = rand() % 2000 + 1;
-		(*array1)[i] = cislo;
-		if (i == pocStlpcov) 
+		for (int j = 0; j < maticaSuvisla1->getPocetStlpcov(); j++)
 		{
-			cout << endl;
+			int cislo = rand() % 2000 + 1;
+			maticaSuvisla1->set(i, j, cislo);
+			cout << maticaSuvisla1->get(i, j) << " " ;
 		}
-		cout << (*array1)[i] << " ";
+		cout << endl;
 	}
-	cout << endl;
-	cout << "MATICA 2 " << endl;
-	for (int i = 0; i < array11->size(); i++)
-	{
-		int cislo = rand() % 2000 + 1;
-		(*array11)[i] = cislo;
-		if (i == pocStlpcov)
-		{
-			cout << endl;
-		}
-		cout << (*array11)[i] << " ";
-	}
-	cout << endl;
-	cout << "VYSLEDOK " << endl;
-	for (int i = 0; i < array111->size(); i++)
-	{
-		(*array111)[i] = (*array1)[i] + (*array11)[i];
-		if (i == pocStlpcov)
-		{
-			cout << endl;
-		}
-		cout <<(*array111)[i] << " ";
-	}
-	cout << endl;
-}
 
-void Matrix::Vynasob(int test)
-{
-	VyberArrayTest(0);
-	cout << "MATICA 1 ";
-	for (int i = 0; i < array1->size(); i++)
+	cout << endl;
+	cout << "MATICA 2" << endl;
+	for (int i = 0; i < maticaSuvisla2->getPocetRiadkov(); i++)
 	{
-		int cislo = rand() % 2 + 1;
-		(*array1)[i] = cislo;
-		if (i % pocStlpcov == 0)
+		for (int j = 0; j < maticaSuvisla2->getPocetStlpcov(); j++)
 		{
-			cout << endl;
+			int cislo = rand() % 2000 + 1;
+			maticaSuvisla2->set(i, j, cislo);
+			cout << maticaSuvisla2->get(i, j) << " ";
 		}
-		cout << (*array1)[i] << " ";
+		cout << endl;
 	}
-	cout << endl;
-	cout << endl;
-	cout << "MATICA 2 ";
-	for (int i = 0; i < array1111->size(); i++)
-	{
-		int cislo = rand() % 2 + 1;
-		(*array1111)[i] = cislo;
-		if (i % konstanta == 0)
-		{
-			cout << endl;
-		}
-		cout << (*array1111)[i] << " ";
-	}
-	cout << endl;
-	cout << endl;
-	cout << "VYSLEDOK NASOBENIA " << endl;
 
-	for (int k = 0; k < pocRiadkov; k++)	
+	cout << endl;
+	cout << "MATICA sucet" << endl;
+	for (int i = 0; i < maticaSuvisla3->getPocetRiadkov(); i++)
 	{
-		for (int i = 0; i < konstanta; i++)	
-		{				
-			(*array11111)[i + k * konstanta] = 0;
-			for (int h = 0; h < pocStlpcov; h++)
-			{
-				(*array11111)[i + k * konstanta] += (*array1)[h + k * pocStlpcov] * (*array1111)[i + h * konstanta];
-			}			
-			cout << (*array11111)[i + k * konstanta] << " ";
+		for (int j = 0; j < maticaSuvisla3->getPocetStlpcov(); j++)
+		{
+			int A = maticaSuvisla1->get(i,j);
+			int B = maticaSuvisla2->get(i, j);
+			int sucet = A + B;
+			maticaSuvisla3->set(i, j, sucet);
+			cout << maticaSuvisla3->get(i, j) << " ";
+			sucet = 0;
+			A = 0;
+			B = 0;
 		}
 		cout << endl;
 	}
 	cout << endl;
 }
+void Matrix::SpocitajPolePoli(int test)
+{
+	VyberArrayTest(1);
+	cout << "MATICA pole poli " << endl;
+	for (int i = 0; i < maticaSuvisla1->getPocetRiadkov(); i++)
+	{
+		for (int j = 0; j < maticaSuvisla1->getPocetStlpcov(); j++)
+		{
+			int cislo = rand() % 2000 + 1;
+			maticaSuvisla1->set(i, j, cislo);
+			cout << maticaSuvisla1->get(i, j) << " ";
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+	cout << "MATICA 2" << endl;
+	for (int i = 0; i < maticaSuvisla2->getPocetRiadkov(); i++)
+	{
+		for (int j = 0; j < maticaSuvisla2->getPocetStlpcov(); j++)
+		{
+			int cislo = rand() % 2000 + 1;
+			maticaSuvisla2->set(i, j, cislo);
+			cout << maticaSuvisla2->get(i, j) << " ";
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+	cout << "MATICA sucet" << endl;
+	for (int i = 0; i < maticaSuvisla3->getPocetRiadkov(); i++)
+	{
+		for (int j = 0; j < maticaSuvisla3->getPocetStlpcov(); j++)
+		{
+			int A = maticaSuvisla1->get(i, j);
+			int B = maticaSuvisla2->get(i, j);
+			int sucet = A + B;
+			maticaSuvisla3->set(i, j, sucet);
+			cout << maticaSuvisla3->get(i, j) << " ";
+			sucet = 0;
+			A = 0;
+			B = 0;
+		}
+		cout << endl;
+	}
+	cout << endl;
+	
+	
+}
+
+void Matrix::Vynasob(int test)
+{
+	VyberArrayTest(0);
+	cout << "MATICA A " << endl;
+	for (int i = 0; i < maticaSuvislaA->getPocetRiadkov(); i++)
+	{
+		for (int j = 0; j < maticaSuvislaA->getPocetStlpcov(); j++)
+		{
+			int cislo = rand() % 2 + 1;
+			maticaSuvislaA->set(i, j, cislo);
+			cout << maticaSuvislaA->get(i, j) << " ";
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+	cout << "MATICA B " << endl;
+	for (int i = 0; i < maticaSuvislaB->getPocetRiadkov(); i++)
+	{
+		for (int j = 0; j < maticaSuvislaB->getPocetStlpcov(); j++)
+		{
+			int cislo = rand() % 2 + 1;
+			maticaSuvislaB->set(i, j, cislo);
+			cout << maticaSuvislaB->get(i, j) << " ";
+		}
+		cout << endl;
+	}
+
+	cout << endl;
+	cout << "MATICA C sucin" << endl;
+	for (int i = 0; i < maticaSuvislaA->getPocetRiadkov(); i++)
+	{
+		for (int j = 0; j < maticaSuvislaB->getPocetStlpcov(); j++)
+		{
+			for (int k = 0; k < maticaSuvislaB->getPocetRiadkov(); k++)
+			{
+				int sucet = maticaSuvislaA->get(i, k) * maticaSuvislaB->get(k, j);
+				spolu += sucet;
+				maticaSuvislaC->set(i, j, spolu);
+				
+			}
+			cout << maticaSuvislaC->get(i, j) << " ";
+			spolu = 0;
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+
 

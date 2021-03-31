@@ -25,11 +25,18 @@ int podielAaaa;
 string fileName = "";
 ofstream MyFile(fileName);
 
+
 LinkedArrayTest::LinkedArrayTest()
 {
-	
 }
 
+LinkedArrayTest::~LinkedArrayTest()
+{
+	cout << "idem do destructure" << endl;
+	delete list;
+	list = nullptr;
+	
+}
 
 int LinkedArrayTest::VyberListTest(int volba)
 {
@@ -45,12 +52,6 @@ int LinkedArrayTest::VyberListTest(int volba)
 	default:
 		return -1;
 	}
-	/*destruktor
-	if (list != nullptr) {
-		list->clear();
-		delete list;
-		list = nullptr;
-	}*/
 	return -1;
 }
 
@@ -106,7 +107,7 @@ void LinkedArrayTest::Spusti(int test)
 	int pocetNastav = 0;
 	int pocetIndex = 0;
 
-	VyberListTest(test);
+	//VyberListTest(test);
 	if (test == 0) {
 		std::cout << "Zvoleny test: ArrayList" << endl;
 		fileName = "ArrayListTest.csv";

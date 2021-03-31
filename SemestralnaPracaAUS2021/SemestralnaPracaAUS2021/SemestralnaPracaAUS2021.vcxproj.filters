@@ -31,6 +31,9 @@
     <Filter Include="Source Files\structures\vector">
       <UniqueIdentifier>{4734c4f2-758e-4393-9915-04e07f8e82d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\structures\matrix">
+      <UniqueIdentifier>{1eebb502-028f-4dab-9f14-a94ec560471a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SemestralnaPracaAUS2021.cpp">
@@ -97,6 +100,15 @@
     </ClInclude>
     <ClInclude Include="Matrix.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matica.h">
+      <Filter>Header Files\structures\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="suvislaMatica.h">
+      <Filter>Header Files\structures\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="nesuvislaMatica.h">
+      <Filter>Header Files\structures\matrix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

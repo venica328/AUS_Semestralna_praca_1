@@ -8,15 +8,15 @@
 class LinkedArrayTest
 {
 private:
-	structures::List<int>* list;
+	structures::List<int>* list = nullptr;
 public:
 	LinkedArrayTest();
-	~LinkedArrayTest() {};
-
 	int VyberListTest(int volba);
 	int VyberScenar(int scenar);
 
 	void Spusti(int test);
+
+	~LinkedArrayTest();
 	
 
 

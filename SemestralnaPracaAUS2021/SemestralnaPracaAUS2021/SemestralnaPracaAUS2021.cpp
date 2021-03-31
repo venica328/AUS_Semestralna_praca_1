@@ -2,17 +2,20 @@
 #include "LinkedArrayTest.h"
 #include "Matrix.h"
 #include "structures/list/array_list.h"
+#include "structures/heap_monitor.h"
 #include <iostream>
 #include <fstream>
 
 using namespace structures;
 
 int main(char* arc, char** argv) {
+	initHeapMonitor();
 
 	Matrix matica;
-	//matica.Spocitaj(0);
+	matica.Spocitaj(0);
 	matica.Vynasob(0);
-
+	matica.SpocitajPolePoli(1);
+	
 	int x;
 	std::cout << "Vyber list test!" << endl;
 	std::cout << "1 = ArrayList || 2 = LinkedList" << endl;
@@ -23,10 +26,12 @@ int main(char* arc, char** argv) {
 		std::cout << "stlac 1 pre scenar A || 2 pre scenar B || 3 pre scenar C" << endl;
 		cin >> y;
 		if(y == 1) {
-			LinkedArrayTest objekt;
-			objekt.VyberListTest(0);
-			objekt.VyberScenar(0);
-			objekt.Spusti(0);
+			LinkedArrayTest *objekt = new LinkedArrayTest();
+			objekt->VyberListTest(0);
+			objekt->VyberScenar(0);
+			objekt->Spusti(0);
+			delete objekt;
+			cout << "scenar 1" << endl;
 		}
 		if (y == 2) {
 			LinkedArrayTest objekt;
@@ -67,11 +72,13 @@ int main(char* arc, char** argv) {
 			objekt.Spusti(1);
 		}
 	}
-	else if(x != 1 || x != 2)
+	else if(x != 1 || 2)
 	{
 		std::cout << "Nevybrali ste si ziadny test!" << endl;
 	}
-	return -1;
+	
+	
+	return 0;
 
 
 }
