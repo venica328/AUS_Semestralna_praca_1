@@ -82,14 +82,18 @@ namespace structures
 	template<typename T>
 	void PriorityQueueUnsortedArrayList<T>::push(const int priority, const T & data)
 	{
-		//TODO 06: PriorityQueueUnsortedArrayList
-		throw std::exception("PriorityQueueUnsortedArrayList<T>::push: Not implemented yet.");
+		list_->add(new PriorityQueueItem<T>(priority, data));
 	}
 
 	template<typename T>
 	inline T PriorityQueueUnsortedArrayList<T>::pop()
 	{
-		//TODO 06: PriorityQueueUnsortedArrayList
-		throw std::exception("PriorityQueueUnsortedArrayList<T>::pop: Not implemented yet.");
+		int index = indexOfPeek();
+		PriorityQueueItem<T>* item = (*list_)[index];
+		(*list_)[index] = (*list_)[static_cast<int>(size()) - 1];
+		list_->removeAt(static_cast<int>(size()) - 1);
+		T data = item->accessData();
+		delete item;
+		return data;
 	}
 }

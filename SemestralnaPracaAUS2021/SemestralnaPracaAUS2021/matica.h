@@ -18,6 +18,7 @@ namespace structures
 		virtual T set(int riadok, int stlpec, T data) = 0;
 		virtual T getPocetRiadkov() const = 0;
 		virtual size_t getPocetStlpcov() const = 0;
+		virtual ~Matica();
 
 
 	protected:
@@ -25,6 +26,11 @@ namespace structures
 		size_t riadky;
 		size_t stlpce;
 	};
+
+	template<typename T>
+	inline Matica<T>::~Matica()
+	{
+	}
 
 	template<typename T>
 	inline Matica<T>::Matica(size_t riadky, size_t stlpce) :

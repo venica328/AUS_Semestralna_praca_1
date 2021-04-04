@@ -35,7 +35,7 @@ namespace structures
 	{
 		for (int i = 0; i < getPocetRiadkov(); i++)
 		{
-			(*pole)[i] = new Array<T>(riadky*stlpce);
+			(*pole)[i] = new Array<T>(stlpce);
 
 		}
 
@@ -43,6 +43,7 @@ namespace structures
 	template<typename T>
 	inline NesuvislaMatica<T>::~NesuvislaMatica()
 	{
+		Matica<T>::~Matica();
 		for (int i = 0; i < getPocetRiadkov(); i++)
 		{
 			delete (*pole)[i];
@@ -70,7 +71,7 @@ namespace structures
 	template<typename T>
 	inline size_t NesuvislaMatica<T>::getPocetStlpcov() const
 	{
-		return stlpce*riadky;
+		return stlpce;
 	}
 	template<typename T>
 	inline Structure* NesuvislaMatica<T>::clone() const

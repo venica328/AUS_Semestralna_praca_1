@@ -6,94 +6,121 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <chrono>
+#include <fstream>
 using namespace structures;
 using namespace std;
 
-int pocRiadkov = (rand() % 20 + 1);
-int pocStlpcov = (rand() % 20 + 1);
-int pocStlpcov2 = (rand() % 20 + 1);
+std::chrono::duration<double> scenarA;
+std::chrono::duration<double> scenarB;
+
+int pocRiadkov = (rand() % 2000 + 1);
+int pocStlpcov = (rand() % 2000 + 1);
+int pocStlpcov2 = (rand() % 2000 + 1);
 int spolu = 0;
 
 Matrix::Matrix()
 {
+	
 }
 
 Matrix::~Matrix()
 {
+	delete matica1;
+	delete matica2;
+	delete matica3;
+	delete maticaA;
+	delete maticaB;
+	delete maticaC;
+	matica1 = nullptr;
+	matica2 = nullptr;
+	matica3 = nullptr;
+	maticaA = nullptr;
+	maticaB = nullptr;
+	maticaC = nullptr;
 }
 
-int Matrix::VyberArrayTest(int volba)
+int Matrix::VyberTest(int volba)
 {
 	switch (volba) {
-	case 0:
-		maticaSuvisla1 = new SuvislaMatica<int>(pocRiadkov, pocStlpcov);
-		maticaSuvisla2 = new SuvislaMatica<int>(pocRiadkov, pocRiadkov);
-		maticaSuvisla3 = new SuvislaMatica<int>(pocRiadkov, pocRiadkov);
-		maticaSuvislaA = new SuvislaMatica<int>(pocRiadkov, pocStlpcov2);
-		maticaSuvislaB = new SuvislaMatica<int>(pocStlpcov2, pocStlpcov);
-		maticaSuvislaC = new SuvislaMatica<int>(pocRiadkov, pocStlpcov);
-		return 0;
-		break;
 	case 1:
-		maticaSuvisla1 = new NesuvislaMatica<int>(pocRiadkov, pocRiadkov);
-		maticaSuvisla2 = new NesuvislaMatica<int>(pocRiadkov, pocRiadkov);
-		maticaSuvisla3 = new NesuvislaMatica<int>(pocRiadkov, pocRiadkov);
-		maticaSuvislaA = new NesuvislaMatica<int>(pocRiadkov, pocStlpcov2);
-		maticaSuvislaB = new NesuvislaMatica<int>(pocStlpcov2, pocStlpcov);
-		maticaSuvislaC = new NesuvislaMatica<int>(pocRiadkov, pocStlpcov);
-		array = new Array<int>(5);
+		matica1 = new SuvislaMatica<int>(pocRiadkov, pocStlpcov);
+		matica2 = new SuvislaMatica<int>(pocRiadkov, pocRiadkov);
+		matica3 = new SuvislaMatica<int>(pocRiadkov, pocRiadkov);
+		maticaA = new SuvislaMatica<int>(pocRiadkov, pocStlpcov2);
+		maticaB = new SuvislaMatica<int>(pocStlpcov2, pocStlpcov);
+		maticaC = new SuvislaMatica<int>(pocRiadkov, pocStlpcov);
 		return 1;
 		break;
+	case 2:
+		matica1 = new NesuvislaMatica<int>(pocRiadkov, pocRiadkov);
+		matica2 = new NesuvislaMatica<int>(pocRiadkov, pocRiadkov);
+		matica3 = new NesuvislaMatica<int>(pocRiadkov, pocRiadkov);
+		maticaA = new NesuvislaMatica<int>(pocRiadkov, pocStlpcov2);
+		maticaB = new NesuvislaMatica<int>(pocStlpcov2, pocStlpcov);
+		maticaC = new NesuvislaMatica<int>(pocRiadkov, pocStlpcov);
+		return 2;
+		break;
 	default:
-		return -1;
+		return 0;
 	}
 	return 0;
 }
 
 int Matrix::VyberScenar(int scenar)
 {
+	switch (scenar) {
+	case 1:
+		return 1;
+		break;
+	case 2:
+		return 2;
+		break;
+	default:
+		return 0;
+	}
 	return 0;
 }
 
 void Matrix::Spocitaj(int test)
 {
-	VyberArrayTest(0);
+	auto start = std::chrono::high_resolution_clock::now();
 	cout << "MATICA 1 " << endl;
-	for (int i = 0; i < maticaSuvisla1->getPocetRiadkov(); i++)
+	for (int i = 0; i < matica1->getPocetRiadkov(); i++)
 	{
-		for (int j = 0; j < maticaSuvisla1->getPocetStlpcov(); j++)
+		for (int j = 0; j < matica1->getPocetStlpcov(); j++)
 		{
 			int cislo = rand() % 2000 + 1;
-			maticaSuvisla1->set(i, j, cislo);
-			cout << maticaSuvisla1->get(i, j) << " " ;
+			matica1->set(i, j, cislo);
+			cout << matica1->get(i, j) << " " ;
 		}
 		cout << endl;
 	}
 
 	cout << endl;
 	cout << "MATICA 2" << endl;
-	for (int i = 0; i < maticaSuvisla2->getPocetRiadkov(); i++)
+	for (int i = 0; i < matica2->getPocetRiadkov(); i++)
 	{
-		for (int j = 0; j < maticaSuvisla2->getPocetStlpcov(); j++)
+		for (int j = 0; j < matica2->getPocetStlpcov(); j++)
 		{
 			int cislo = rand() % 2000 + 1;
-			maticaSuvisla2->set(i, j, cislo);
-			cout << maticaSuvisla2->get(i, j) << " ";
+			matica2->set(i, j, cislo);
+			cout << matica2->get(i, j) << " ";
 		}
 		cout << endl;
 	}
 
 	cout << endl;
 	cout << "MATICA sucet" << endl;
-	for (int i = 0; i < maticaSuvisla3->getPocetRiadkov(); i++)
+	for (int i = 0; i < matica3->getPocetRiadkov(); i++)
 	{
-		for (int j = 0; j < maticaSuvisla3->getPocetStlpcov(); j++)
+		for (int j = 0; j < matica3->getPocetStlpcov(); j++)
 		{
-			int A = maticaSuvisla1->get(i,j);
-			int B = maticaSuvisla2->get(i, j);
+			int A = matica1->get(i,j);
+			int B = matica2->get(i, j);
 			int sucet = A + B;
-			maticaSuvisla3->set(i, j, sucet);
-			cout << maticaSuvisla3->get(i, j) << " ";
+			matica3->set(i, j, sucet);
+			cout << matica3->get(i, j) << " ";
 			sucet = 0;
 			A = 0;
 			B = 0;
@@ -101,104 +128,81 @@ void Matrix::Spocitaj(int test)
 		cout << endl;
 	}
 	cout << endl;
-}
-void Matrix::SpocitajPolePoli(int test)
-{
-	VyberArrayTest(1);
-	cout << "MATICA pole poli " << endl;
-	for (int i = 0; i < maticaSuvisla1->getPocetRiadkov(); i++)
-	{
-		for (int j = 0; j < maticaSuvisla1->getPocetStlpcov(); j++)
-		{
-			int cislo = rand() % 2000 + 1;
-			maticaSuvisla1->set(i, j, cislo);
-			cout << maticaSuvisla1->get(i, j) << " ";
-		}
-		cout << endl;
-	}
+	auto koniec = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> vysledok = koniec - start;
 
-	cout << endl;
-	cout << "MATICA 2" << endl;
-	for (int i = 0; i < maticaSuvisla2->getPocetRiadkov(); i++)
-	{
-		for (int j = 0; j < maticaSuvisla2->getPocetStlpcov(); j++)
-		{
-			int cislo = rand() % 2000 + 1;
-			maticaSuvisla2->set(i, j, cislo);
-			cout << maticaSuvisla2->get(i, j) << " ";
-		}
-		cout << endl;
+	std::cout << endl;
+	if (test == 1) {
+		std::cout << "Cas testu v suvislej pamati!" << endl;
 	}
-
-	cout << endl;
-	cout << "MATICA sucet" << endl;
-	for (int i = 0; i < maticaSuvisla3->getPocetRiadkov(); i++)
+	else if (test == 2)
 	{
-		for (int j = 0; j < maticaSuvisla3->getPocetStlpcov(); j++)
-		{
-			int A = maticaSuvisla1->get(i, j);
-			int B = maticaSuvisla2->get(i, j);
-			int sucet = A + B;
-			maticaSuvisla3->set(i, j, sucet);
-			cout << maticaSuvisla3->get(i, j) << " ";
-			sucet = 0;
-			A = 0;
-			B = 0;
-		}
-		cout << endl;
+		std::cout << "Cas testu v nesuvislej pamati!" << endl;
 	}
-	cout << endl;
-	
-	
+	std::cout << "Celkovy cas: " << vysledok.count() << endl;
 }
 
 void Matrix::Vynasob(int test)
 {
-	VyberArrayTest(0);
+	auto start = std::chrono::high_resolution_clock::now();
 	cout << "MATICA A " << endl;
-	for (int i = 0; i < maticaSuvislaA->getPocetRiadkov(); i++)
+	for (int i = 0; i < maticaA->getPocetRiadkov(); i++)
 	{
-		for (int j = 0; j < maticaSuvislaA->getPocetStlpcov(); j++)
+		for (int j = 0; j < maticaA->getPocetStlpcov(); j++)
 		{
-			int cislo = rand() % 2 + 1;
-			maticaSuvislaA->set(i, j, cislo);
-			cout << maticaSuvislaA->get(i, j) << " ";
+			int cislo = rand() % 2000 + 1;
+			maticaA->set(i, j, cislo);
+			cout << maticaA->get(i, j) << " ";
 		}
 		cout << endl;
 	}
 
 	cout << endl;
 	cout << "MATICA B " << endl;
-	for (int i = 0; i < maticaSuvislaB->getPocetRiadkov(); i++)
+	for (int i = 0; i < maticaB->getPocetRiadkov(); i++)
 	{
-		for (int j = 0; j < maticaSuvislaB->getPocetStlpcov(); j++)
+		for (int j = 0; j < maticaB->getPocetStlpcov(); j++)
 		{
-			int cislo = rand() % 2 + 1;
-			maticaSuvislaB->set(i, j, cislo);
-			cout << maticaSuvislaB->get(i, j) << " ";
+			int cislo = rand() % 2000 + 1;
+			maticaB->set(i, j, cislo);
+			cout << maticaB->get(i, j) << " ";
 		}
 		cout << endl;
 	}
 
 	cout << endl;
 	cout << "MATICA C sucin" << endl;
-	for (int i = 0; i < maticaSuvislaA->getPocetRiadkov(); i++)
+	for (int i = 0; i < maticaA->getPocetRiadkov(); i++)
 	{
-		for (int j = 0; j < maticaSuvislaB->getPocetStlpcov(); j++)
+		for (int j = 0; j < maticaB->getPocetStlpcov(); j++)
 		{
-			for (int k = 0; k < maticaSuvislaB->getPocetRiadkov(); k++)
+			for (int k = 0; k < maticaB->getPocetRiadkov(); k++)
 			{
-				int sucet = maticaSuvislaA->get(i, k) * maticaSuvislaB->get(k, j);
+				int sucet = maticaA->get(i, k) * maticaB->get(k, j);
 				spolu += sucet;
-				maticaSuvislaC->set(i, j, spolu);
+				maticaC->set(i, j, spolu);
 				
 			}
-			cout << maticaSuvislaC->get(i, j) << " ";
+			cout << maticaC->get(i, j) << " ";
 			spolu = 0;
 		}
 		cout << endl;
 	}
 	cout << endl;
+	auto koniec = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> vysledok = koniec - start;
+
+	std::cout << endl;
+	if (test == 1) {
+		std::cout << "Cas testu v suvislej pamati!" << endl;
+	}
+	else if (test == 2)
+	{
+		std::cout << "Cas testu v nesuvislej pamati!" << endl;
+	}
+	std::cout << "Celkovy cas: " << vysledok.count() << endl;
 }
+
+
 
 

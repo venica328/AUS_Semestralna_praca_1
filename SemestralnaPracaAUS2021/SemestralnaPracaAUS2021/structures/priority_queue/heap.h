@@ -15,6 +15,9 @@ namespace structures
 		/// <summary> Konstruktor. </summary>
 		Heap();
 
+		/// <summary> Destruktor. </summary>
+		~Heap();
+
 		/// <summary> Kopirovaci konstruktor. </summary>
 		/// <param name = "other"> Halda, z ktorej sa prevezmu vlastnosti. </param>
 		Heap(const Heap<T>& other);
@@ -70,6 +73,11 @@ namespace structures
 	}
 
 	template<typename T>
+	Heap<T>::~Heap()
+	{
+	}
+	
+	template<typename T>
 	Heap<T>::Heap(const Heap<T>& other) :
 		Heap<T>()
 	{
@@ -101,35 +109,69 @@ namespace structures
 	template<typename T>
 	void Heap<T>::push(const int priority, const T& data)
 	{
-		//TODO 06: Heap
-		throw std::exception("Heap<T>::push: Not implemented yet.");
+		PriorityQueueItem<T>* item = new PriorityQueueItem<T>(priority, data);
+		this->list_->add(item);
+		int itemIndex = static_cast<int>(this->list_->size()) - 1;
+		int parentIndex = this->getParentIndex(itemIndex);
+
+		while (itemIndex > 0 && (*this->list_)[itemIndex]->getPriority() < (*this->list_)[parentIndex]->getPriority())
+		{
+			DSRoutines::swap<PriorityQueueItem<T>*>((*this->list_)[itemIndex], (*this->list_)[parentIndex]);
+			itemIndex = parentIndex;
+			parentIndex = this->getParentIndex(itemIndex);
+		}
 	}
 
 	template<typename T>
 	T Heap<T>::pop()
 	{
-		//TODO 06: Heap
-		throw std::exception("Heap<T>::pop: Not implemented yet.");
+		DSRoutines::swap<PriorityQueueItem<T>*>((*this->list_)[this->indexOfPeek()], (*this->list_)[static_cast<int>(this->list_->size()) - 1]);
+		PriorityQueueItem<T>* removed = this->list_->removeAt(static_cast<int>(this->list_->size()) - 1);
+
+		int itemIndex = 0;
+		int sonIndex = this->getGreaterSonIndex(itemIndex);
+
+		while (sonIndex < this->list_->size() && (*this->list_)[itemIndex]->getPriority() > (*this->list_)[sonIndex]->getPriority())
+		{
+			DSRoutines::swap<PriorityQueueItem<T>*>((*this->list_)[itemIndex], (*this->list_)[sonIndex]);
+			itemIndex = sonIndex;
+			sonIndex - this->getGreaterSonIndex(itemIndex);
+
+		}
+
+		T data = removed->accessData();
+		delete removed;
+		return data;
 	}
 
 	template<typename T>
 	inline int Heap<T>::getParentIndex(const int index)
 	{
-		//TODO 06: Heap
-		throw std::exception("Heap<T>::getParentIndex: Not implemented yet.");
+		return (index - 1) / 2;
 	}
 
 	template<typename T>
 	inline int Heap<T>::getGreaterSonIndex(const int index)
 	{
-		//TODO 06: Heap
-		throw std::exception("Heap<T>::getGreaterSonIndex: Not implemented yet.");
+		int lSonIndex = 2 * index + 1;
+		int rSonIndex = 2 * index + 2;
+		if (rSonIndex < this->list_->size() && (*this->list_)[lSonIndex]->getPriority() > (*this->list_)[rSonIndex]->getPriority())
+		{
+			return rSonIndex;
+		}
+		else
+		{
+			return lSonIndex;
+		}
 	}
 
 	template<typename T>
 	inline int Heap<T>::indexOfPeek() const
 	{
-		//TODO 06: Heap
-		throw std::exception("Heap<T>::indexOfPeek: Not implemented yet.");
+		if (this->list_->size() < 1)
+		{
+			throw std::logic_error("Heap is empty!");
+		}
+		return 0;
 	}
 }

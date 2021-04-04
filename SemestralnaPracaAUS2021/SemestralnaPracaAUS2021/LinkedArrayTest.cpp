@@ -1,6 +1,7 @@
 #include "LinkedArrayTest.h"
 #include "structures/list/array_list.h"
 #include "structures/list/linked_list.h"
+#include "structures/list/cyclic_list.h"
 #include <chrono>
 #include <fstream>
 
@@ -33,6 +34,7 @@ LinkedArrayTest::LinkedArrayTest()
 LinkedArrayTest::~LinkedArrayTest()
 {
 	cout << "idem do destructure" << endl;
+	list->clear();
 	delete list;
 	list = nullptr;
 	
@@ -41,16 +43,20 @@ LinkedArrayTest::~LinkedArrayTest()
 int LinkedArrayTest::VyberListTest(int volba)
 {
 	switch (volba) {
-	case 0:
-		list = new ArrayList<int>();
-		return 0;
-		break;
 	case 1:
-		list = new LinkedList<int>();
+		list = new ArrayList<int>();
 		return 1;
 		break;
+	case 2:
+		list = new LinkedList<int>();
+		return 2;
+		break;
+	case 3:
+		list = new CyclicList<int>();
+		return 3;
+		break;
 	default:
-		return -1;
+		return 0;
 	}
 	return -1;
 }
@@ -108,49 +114,46 @@ void LinkedArrayTest::Spusti(int test)
 	int pocetIndex = 0;
 
 	//VyberListTest(test);
-	if (test == 0) {
+	if (test == 1) {
 		std::cout << "Zvoleny test: ArrayList" << endl;
 		fileName = "ArrayListTest.csv";
 	}
-	else if(test == 1)
+	else if(test == 2)
 	{
 		std::cout << "Zvoleny test: LinkedList" << endl;
 		fileName = "LinkedListTest.csv";
 	}
-
-	for (int i = 0; i < 20; i++) {
-		list->add(rand() % 10);
-		std::cout << i << endl;
+	else if (test == 3)
+	{
+		std::cout << "Zvoleny test: CyclicList" << endl;
+		fileName = "CyclicListTest.csv";
 	}
 	
 	ofstream MyFile(fileName);	
 	auto start = std::chrono::high_resolution_clock::now();
 
-	while(pocetInsert+pocetZmaz+pocetNastav+pocetIndex < 100000) {
+	while(pocetInsert+pocetZmaz+pocetNastav+pocetIndex < 100000 && (pocetInsert < podielA || pocetZmaz < podielAa)) {
 
-		int randomIndexVPoli = (rand() % list->size());
 		int random = (rand() % 3) + 1;
 		int randomSet = (rand() % 2) + 1;
 		int nastavCislo = (rand() % 100 + 1);
+		double randomChoose = (rand() % 100) / 100.0;
 		
-		if (rand() % 100 >= defaultLow && rand() % 100 < A && pocetInsert < podielA) {
+		if (randomChoose >= defaultLow && randomChoose < A && pocetInsert < podielA) {
 			auto insertStartTime = std::chrono::high_resolution_clock::now();
 			switch (random)
 			{
 			case 1:
 				list->insert(nastavCislo, 0);
-				std::cout << "vlozilo sa cislo na index 0" << endl;
-				std::cout << list->size() << endl;
+				std::cout << "vlozilo sa cislo na index 0.. velkost listu: " << list->size() << endl;
 				break;
 			case 2:
 				list->add(nastavCislo);
-				std::cout << "vlozilo sa cislo na koniec" << endl;
-				std::cout << list->size() << endl;
+				std::cout << "vlozilo sa cislo na koniec.. velkost listu: " << list->size() << endl;
 				break;
 			case 3:
-				list->insert(nastavCislo, randomIndexVPoli);
-				std::cout << "vlozilo sa cislo na nahodny index" << endl;
-				std::cout << list->size() << endl;
+				list->insert(nastavCislo, (list->size() == 0 ? 0 : rand() % list->size()));
+				std::cout << "vlozilo sa cislo na nahodny index.. velkost listu: " << list->size() << endl;
 				break;
 			default:
 				break;
@@ -161,23 +164,21 @@ void LinkedArrayTest::Spusti(int test)
 			pocetInsert++;
 			
 		}
-		else if ((rand() % 100 >= A && rand() % 100 < Aa) && list->size() > 1 && pocetZmaz < podielAa)
+		else if ((randomChoose >= A && randomChoose < Aa) && list->size() > 0 && pocetZmaz < podielAa)
 		{
 			auto removeStartTime = std::chrono::high_resolution_clock::now();
 			switch (random)
 			{
 			case 1:
 				list->removeAt(0);
-				std::cout << list->size() << endl;
-				std::cout << "zmazalo sa cislo na indexe 0" << endl;
+				std::cout << "zmazalo sa cislo na indexe 0.. velkost listu: " << list->size() << endl;
 				break;
 			case 2:
 				list->removeAt(list->size()-1);
-				std::cout << "zmazalo sa cislo na poslednom indexe" << endl;
+				std::cout << "zmazalo sa cislo na poslednom indexe.. velkost listu: " << list->size() << endl;
 				break;
 			case 3:
-				list->removeAt(randomIndexVPoli);
-				std::cout << "zmazalo sa cislo na random indexe" << endl;
+				std::cout << "zmazalo sa cislo na tomto random indexe: " << list->removeAt(rand() % list->size()) << endl;
 				break;
 			default:
 				break;
@@ -187,19 +188,18 @@ void LinkedArrayTest::Spusti(int test)
 			removeVysledok = removeVysledok + vysledokRemove;
 			pocetZmaz++;
 		}
-		else if ((rand() % 100 >= Aa && rand() % 100 < Aaa) && list->size() > 1 && pocetNastav < podielAaa)
+		 else if ((randomChoose >= Aa && randomChoose < Aaa) && list->size() > 0 && pocetNastav < podielAaa)
 		{
 			auto setStartTime = std::chrono::high_resolution_clock::now();
+			int index = rand() % list->size();
 			switch (randomSet)
 			{
 			case 1:
-				list[randomIndexVPoli];
-				std::cout << "cislo na tomto indexe sa spristupnilo: " << endl;
+				std::cout << "cislo na tomto indexe sa spristupnilo: " << (*list)[index] << endl;
 				break;
 			case 2:
-				(*list)[randomIndexVPoli] = nastavCislo;
-				
-				std::cout << "cislo sa nastavilo na tomto indexe" << endl;
+				(*list)[index] = nastavCislo;
+				std::cout << "cislo sa nastavilo na tomto indexe: " << index << endl;
 				break;
 			default:
 				break;
@@ -209,11 +209,10 @@ void LinkedArrayTest::Spusti(int test)
 			setVysledok = setVysledok + vysledokSet;
 			pocetNastav++;
 		}
-		else if ((rand() % 100 >= Aaa && rand() % 100 < defaultHigh) && list->size() > 1 && pocetIndex < podielAaaa)
+		 else if ((randomChoose >= Aaa && randomChoose < defaultHigh) && list->size() > 0 && pocetIndex < podielAaaa)
 		{
 			auto indexStartTime = std::chrono::high_resolution_clock::now();
-			list->getIndexOf(10);
-			std::cout << "zistilo ci sa cislo nachadza v poli" << endl;
+			std::cout << "zistilo ci sa cislo nachadza v poli" << list->getIndexOf(rand() % list->size()) << endl;
 
 			auto indexKoniecTime = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double> vysledokIndex = std::chrono::duration_cast<std::chrono::microseconds>(indexKoniecTime - indexStartTime);

@@ -1,5 +1,4 @@
 #pragma once
-#include "structures/list/array_list.h";
 #include "structures/list/list.h";
 #include "ADT.h";
 #include "../Casovac.h";

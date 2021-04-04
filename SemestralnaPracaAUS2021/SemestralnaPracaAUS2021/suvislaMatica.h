@@ -37,6 +37,7 @@ namespace structures
 	template<typename T>
 	inline SuvislaMatica<T>::~SuvislaMatica()
 	{
+		Matica<T>::~Matica();
 		delete pole;
 		pole = nullptr;
 	}
