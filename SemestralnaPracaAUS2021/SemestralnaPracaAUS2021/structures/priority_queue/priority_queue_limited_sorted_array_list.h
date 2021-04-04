@@ -97,8 +97,11 @@ namespace structures
 	template<typename T>
 	inline PriorityQueueLimitedSortedArrayList<T>& PriorityQueueLimitedSortedArrayList<T>::operator=(const PriorityQueueLimitedSortedArrayList<T>& other)
 	{
-		//TODO 06: PriorityQueueLimitedSortedArrayList
-		throw std::exception("PriorityQueueLimitedSortedArrayList<T>::operator=: Not implemented yet.");
+		if (this != &other)
+		{
+			PriorityQueueSortedArrayList<T>::operator=(other);
+		}
+		return *this;
 	}
 
 	template<typename T>

@@ -1,5 +1,2 @@
-Poèet všetkıch operácií: ;Poèet insert operácií: ;Poèet remove operácií: ;Poèet set operácií: ;Poèet index operácií: 
-100000;20000;20000;50000;10000
-
-Èasová nároènos: ;VŠETKY OPERÁCIE: ;INSERT: ;REMOVE: ;SET: ;INDEX: 
-;43.404;10.7456;7.01039;8.98985;11.1259
+Poèet všetkıch operácií: ;Poèet insert operácií: ;Poèet remove operácií: ;Poèet set operácií: ;Poèet index operácií: ;Èas celkovo: ;Èas INSERT: ; Èas REMOVE: ;Èas SET: ;Èas INDEX: 
+100000;20000;20000;50000;10000;46,770319;5,872534;5,487361;11,778598;23,435503

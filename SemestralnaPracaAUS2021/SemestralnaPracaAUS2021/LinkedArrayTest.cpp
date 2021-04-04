@@ -22,11 +22,6 @@ int podielAa;
 int podielAaa;
 int podielAaaa;
 
-
-string fileName = "";
-ofstream MyFile(fileName);
-
-
 LinkedArrayTest::LinkedArrayTest()
 {
 }
@@ -37,7 +32,6 @@ LinkedArrayTest::~LinkedArrayTest()
 	list->clear();
 	delete list;
 	list = nullptr;
-	
 }
 
 int LinkedArrayTest::VyberListTest(int volba)
@@ -112,8 +106,8 @@ void LinkedArrayTest::Spusti(int test)
 	int pocetZmaz = 0;
 	int pocetNastav = 0;
 	int pocetIndex = 0;
+	string fileName = "";
 
-	//VyberListTest(test);
 	if (test == 1) {
 		std::cout << "Zvoleny test: ArrayList" << endl;
 		fileName = "ArrayListTest.csv";
@@ -129,9 +123,7 @@ void LinkedArrayTest::Spusti(int test)
 		fileName = "CyclicListTest.csv";
 	}
 	
-	ofstream MyFile(fileName);	
 	auto start = std::chrono::high_resolution_clock::now();
-
 	while(pocetInsert+pocetZmaz+pocetNastav+pocetIndex < 100000 && (pocetInsert < podielA || pocetZmaz < podielAa)) {
 
 		int random = (rand() % 3) + 1;
@@ -219,7 +211,6 @@ void LinkedArrayTest::Spusti(int test)
 			indexVysledok = indexVysledok + vysledokIndex;
 			pocetIndex++;
 		}
-		
 	}
 
 	auto koniec = std::chrono::high_resolution_clock::now();
@@ -231,24 +222,24 @@ void LinkedArrayTest::Spusti(int test)
 	std::cout << "Celkovy cas operacie remove: " << removeVysledok.count() << " vykonanych operacii remove bolo: " << pocetZmaz<< endl;
 	std::cout << "Celkovy cas operacie set: " << setVysledok.count() << " vykonanych operacii nastav bolo: " << pocetNastav<< endl;
 	std::cout << "Celkovy cas operacie index: " << indexVysledok.count() << " vykonanych operacii index bolo: " << pocetIndex<< endl;
-	/**
-	MyFile << "Poèet všetkých operácií: " << ";" << pocetInsert + pocetZmaz + pocetNastav + pocetIndex << ";" << "èasová nároènos: " << ";" << vysledok.count() << endl;
-	MyFile << "Poèet insert operácií: " << ";" <<pocetInsert << ";" << "èasová nároènos: " << ";" << insertVysledok.count() <<endl;
-	MyFile << "Poèet remove operácií: " << ";" <<pocetZmaz << ";" << "èasová nároènos: " << ";" << removeVysledok.count() <<endl;
-	MyFile << "Poèet set operácií: " << ";" <<pocetNastav << ";" << "èasová nároènos: " << ";" << setVysledok.count() <<endl;
-	MyFile << "Poèet index operácií: " << ";" <<pocetIndex << ";" << "èasová nároènos: " << ";" << indexVysledok.count() <<endl;
-	**/
 
-	MyFile << "Poèet všetkých operácií: " << ";" << "Poèet insert operácií: " << ";" << "Poèet remove operácií: " << ";" << "Poèet set operácií: " << ";" << "Poèet index operácií: " << endl;
-	MyFile << pocetInsert + pocetZmaz + pocetNastav + pocetIndex << ";" << pocetInsert << ";" << pocetZmaz << ";" << pocetNastav << ";" << pocetIndex << endl;
-	MyFile << endl;
-	MyFile << "Èasová nároènos: " << ";" << "VŠETKY OPERÁCIE: " << ";" << "INSERT: " << ";" << "REMOVE: " << ";" << "SET: " << ";" << "INDEX: " << endl;
-	MyFile << "" << ";" << vysledok.count() << ";" << insertVysledok.count() << ";" << removeVysledok.count() << ";" << setVysledok.count() << ";" << indexVysledok.count() << endl;
+	if (!ExistujeSubor(fileName))
+	{
+		ofstream MyFile(fileName);
+		MyFile << "Poèet všetkých operácií: " << ";" << "Poèet insert operácií: " << ";" << "Poèet remove operácií: " << ";" << "Poèet set operácií: " << ";" << "Poèet index operácií: " << ";"
+			<< "Èas celkovo: " << ";" << "Èas INSERT: " << ";" << " Èas REMOVE: " << ";" << "Èas SET: " << ";" << "Èas INDEX: " << endl;
+		MyFile.close();
+	}
 
+	ofstream MyFile(fileName, ios_base::app);
+	string celkovyCas = to_string(vysledok.count()), insertCas = to_string(insertVysledok.count()), removeCas = to_string(removeVysledok.count()), setCas = to_string(setVysledok.count()), indexCas = to_string(indexVysledok.count());
+	MyFile << pocetInsert + pocetZmaz + pocetNastav + pocetIndex << ";" << pocetInsert << ";" << pocetZmaz << ";" << pocetNastav << ";" << pocetIndex
+		<< ";" << celkovyCas.replace(celkovyCas.find("."), 1, ",") << ";" << insertCas.replace(insertCas.find("."), 1, ",") << ";" << removeCas.replace(removeCas.find("."), 1, ",") << ";" << setCas.replace(setCas.find("."), 1, ",") << ";" << indexCas.replace(indexCas.find("."), 1, ",") << endl;
 	MyFile.close();
 }
 
-
-
-
-	
+bool LinkedArrayTest::ExistujeSubor(const string fileName) {
+	ifstream subor;
+	subor.open(fileName);
+	return (bool)subor;
+}

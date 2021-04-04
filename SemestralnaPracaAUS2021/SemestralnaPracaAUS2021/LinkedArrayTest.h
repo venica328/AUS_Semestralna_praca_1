@@ -3,7 +3,6 @@
 #include "ADT.h";
 #include "../Casovac.h";
 
-
 class LinkedArrayTest
 {
 private:
@@ -14,10 +13,8 @@ public:
 	int VyberScenar(int scenar);
 
 	void Spusti(int test);
+	bool ExistujeSubor(const std::string fileName);
 
 	~LinkedArrayTest();
-	
-
-
 };
 

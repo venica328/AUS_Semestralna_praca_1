@@ -1,6 +1,7 @@
 #pragma once
 #include "structures/array/array.h";
 #include "matica.h"
+#include <chrono>
 
 class Matrix
 {
@@ -21,7 +22,7 @@ public:
 	int VyberScenar(int scenar);
 	void Spocitaj(int test);
 	void Vynasob(int test);
-
-
+	void ZapisDoSuboru(std::string fileName, std::chrono::duration<double> vysledok);
+	bool ExistujeSubor(const std::string fileName);
 };
 

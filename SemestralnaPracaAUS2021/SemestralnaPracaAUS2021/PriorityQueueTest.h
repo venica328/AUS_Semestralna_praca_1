@@ -9,10 +9,11 @@ private:
 	structures::PriorityQueueList<int>* queue = nullptr;
 public:
 	PriorityQueueTest();
+	~PriorityQueueTest();
+
 	int VyberTest(int volba);
 	int VyberScenar(int scenar);
 	void Spusti(int test);
-
-	~PriorityQueueTest();
+	bool ExistujeSubor(const std::string fileName);
 };
 

@@ -8,16 +8,14 @@
 #include <stdlib.h>
 #include <chrono>
 #include <fstream>
+#include <sys/stat.h>
+#include <iomanip>
+#include <string>
 using namespace structures;
 using namespace std;
 
 std::chrono::duration<double> scenarA;
 std::chrono::duration<double> scenarB;
-
-int pocRiadkov = (rand() % 2000 + 1);
-int pocStlpcov = (rand() % 2000 + 1);
-int pocStlpcov2 = (rand() % 2000 + 1);
-int spolu = 0;
 
 Matrix::Matrix()
 {
@@ -42,6 +40,10 @@ Matrix::~Matrix()
 
 int Matrix::VyberTest(int volba)
 {
+	int pocRiadkov = (rand() % 2000 + 1);
+	int pocStlpcov = (rand() % 2000 + 1);
+	int pocStlpcov2 = (rand() % 2000 + 1);
+
 	switch (volba) {
 	case 1:
 		matica1 = new SuvislaMatica<int>(pocRiadkov, pocStlpcov);
@@ -140,6 +142,8 @@ void Matrix::Spocitaj(int test)
 		std::cout << "Cas testu v nesuvislej pamati!" << endl;
 	}
 	std::cout << "Celkovy cas: " << vysledok.count() << endl;
+
+	ZapisDoSuboru("MaticaSpocitajTest.csv", vysledok);
 }
 
 void Matrix::Vynasob(int test)
@@ -172,6 +176,7 @@ void Matrix::Vynasob(int test)
 
 	cout << endl;
 	cout << "MATICA C sucin" << endl;
+	int spolu = 0;
 	for (int i = 0; i < maticaA->getPocetRiadkov(); i++)
 	{
 		for (int j = 0; j < maticaB->getPocetStlpcov(); j++)
@@ -201,8 +206,27 @@ void Matrix::Vynasob(int test)
 		std::cout << "Cas testu v nesuvislej pamati!" << endl;
 	}
 	std::cout << "Celkovy cas: " << vysledok.count() << endl;
+
+	ZapisDoSuboru("MaticaVynasobTest.csv", vysledok);
 }
 
+void Matrix::ZapisDoSuboru(string fileName, std::chrono::duration<double> vysledok)
+{
+	if (!ExistujeSubor(fileName))
+	{
+		ofstream MyFile(fileName);
+		MyFile << "Poèet riadkov: " << ";" << "Poèet ståpcov: " << ";" << "Celkový èas operácie: " << ";" << endl;
+		MyFile.close();
+	}
 
+	ofstream MyFile(fileName, ios_base::app);
+	string cas = to_string(vysledok.count());
+	MyFile << matica3->getPocetRiadkov() << ";" << matica3->getPocetStlpcov() << ";" << cas.replace(cas.find("."), 1, ",") << endl;
+	MyFile.close();
+}
 
-
+bool Matrix::ExistujeSubor(const string fileName) {
+	ifstream subor;
+	subor.open(fileName);
+	return (bool)subor;
+}

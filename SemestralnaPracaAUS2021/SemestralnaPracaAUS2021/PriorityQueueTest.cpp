@@ -23,6 +23,12 @@ PriorityQueueTest::PriorityQueueTest()
 {
 }
 
+PriorityQueueTest::~PriorityQueueTest()
+{
+	queue->clear();
+	delete queue;
+}
+
 int PriorityQueueTest::VyberTest(int volba)
 {
 	switch (volba) {
@@ -79,6 +85,17 @@ void PriorityQueueTest::Spusti(int test)
 	int pocetPush = 0;
 	int pocetPop = 0;
 	int pocetPeek = 0;
+	string fileName = "";
+
+	if (test == 1) {
+		std::cout << "Zvoleny test: Heap" << endl;
+		fileName = "HeapTest.csv";
+	}
+	else if (test == 2)
+	{
+		std::cout << "Zvoleny test: PriorityQueueSortedArrayList" << endl;
+		fileName = "PriorityQueueSortedArrayListTest.csv";
+	}
 	
 	auto start = std::chrono::high_resolution_clock::now();
 	while (pocetPush + pocetPop + pocetPeek < 100000 && (pocetPush < podielB || pocetPop < podielBb))
@@ -150,10 +167,24 @@ void PriorityQueueTest::Spusti(int test)
 	std::cout << "Celkovy cas operacie push: " << pushVysledok.count() << " vykonanych operacii insert bolo: " << pocetPush << endl;
 	std::cout << "Celkovy cas operacie pop: " << popVysledok.count() << " vykonanych operacii remove bolo: " << pocetPop << endl;
 	std::cout << "Celkovy cas operacie peek: " << peekVysledok.count() << " vykonanych operacii nastav bolo: " << pocetPeek << endl;
+
+	if (!ExistujeSubor(fileName))
+	{
+		ofstream MyFile(fileName);
+		MyFile << "Poèet všetkých operácií: " << ";" << "Poèet push operácií: " << ";" << "Poèet pop operácií: " << ";" << "Poèet peek operácií: " << ";"
+			<< "Èas celkovo: " << ";" << "Èas PUSH: " << ";" << " Èas POP: " << ";" << "Èas PEEK: " << endl;
+		MyFile.close();
+	}
+
+	ofstream MyFile(fileName, ios_base::app);
+	string celkovyCas = to_string(vysledok.count()), pushCas = to_string(pushVysledok.count()), popCas = to_string(popVysledok.count()), peekCas = to_string(peekVysledok.count());
+	MyFile << pocetPush + pocetPop + pocetPeek << ";" << pocetPush << ";" << pocetPop << ";" << pocetPeek
+		<< ";" << celkovyCas.replace(celkovyCas.find("."), 1, ",") << ";" << pushCas.replace(pushCas.find("."), 1, ",") << ";" << popCas.replace(popCas.find("."), 1, ",") << ";" << peekCas.replace(peekCas.find("."), 1, ",") << endl;
+	MyFile.close();
 }
 
-PriorityQueueTest::~PriorityQueueTest()
-{
-	queue->clear();
-	delete queue;
+bool PriorityQueueTest::ExistujeSubor(const string fileName) {
+	ifstream subor;
+	subor.open(fileName);
+	return (bool)subor;
 }
